@@ -1,0 +1,14 @@
+CMOS_Switch
+import inverter
+create a float parameter called p_width
+create a float parameter called n_width
+place a nmos called pulldown with width n_width, length 1 fingers 1 rmult 1 multipliers 1 with_substrate_tap False with_tie False sd_rmult 1 gate_rmult 1 interfinger_rmult 1 with_dummy False
+place a pmos called pullup with width p_width, length 1 fingers 1 rmult 1 multipliers 1 with_substrate_tap False with_tie False sd_rmult 1 gate_rmult 1 interfinger_rmult 1 with_dummy False
+place a inverter called invert with nmos_width n_width pmos_width p_width
+move pullup above pulldown
+move invert left pullup
+route between pullup_gate_W and pulldown_gate_W usinng smart route
+route between pullup_drain_E and pulldown_drain_E using smart route
+route between invert_pullup_drain_W and pullup_gate_W using smart route
+route between invert_pullup_gate_W and pulldown_gate_W using smart route
+
