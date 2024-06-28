@@ -1,0 +1,19 @@
+NMOS_Switch
+
+import Resistor
+
+create a float parameter called n_width
+create a float parameter called p_width
+
+place a nmos called n1 with width n_width, length 1 fingers 1 rmult 1 multipliers 1 with_substrate_tap False with_tie False sd_rmult 1 gate_rmult 1 interfinger_rmult 1 with_dummy False
+
+
+
+place a Resistor called r1 with nmos_width n_width pmos_width p_width
+place a Resistor called r2 with nmos_width n_width pmos_width p_width
+
+move r2 right r1
+move n1 left r1
+
+route between r1_p1_source_W and n1_drain_W using smart route
+route between n1_gate_W and r2_p1_source_W using smart route
