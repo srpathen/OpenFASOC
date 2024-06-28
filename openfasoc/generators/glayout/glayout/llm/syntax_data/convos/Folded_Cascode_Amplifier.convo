@@ -1,0 +1,62 @@
+Folded_Cascode_Amplifier
+
+import mimcap
+
+create a float parameter called n_width
+create a float parameter called p_width
+
+
+place a nmos called n1 with width n_width, length 1 fingers 1 rmult 1 multipliers 1 with_substrate_tap False with_tie False sd_rmult 1 gate_rmult 1 interfinger_rmult 1 with_dummy False
+place a nmos called n2 with width n_width, length 1 fingers 1 rmult 1 multipliers 1 with_substrate_tap False with_tie False sd_rmult 1 gate_rmult 1 interfinger_rmult 1 with_dummy False
+place a nmos called n3 with width n_width, length 1 fingers 1 rmult 1 multipliers 1 with_substrate_tap False with_tie False sd_rmult 1 gate_rmult 1 interfinger_rmult 1 with_dummy False
+place a nmos called n4 with width n_width, length 1 fingers 1 rmult 1 multipliers 1 with_substrate_tap False with_tie False sd_rmult 1 gate_rmult 1 interfinger_rmult 1 with_dummy False
+
+place a pmos called p1 with width p_width, length 1 fingers 1 rmult 1 multipliers 1 with_substrate_tap False with_tie False sd_rmult 1 gate_rmult 1 interfinger_rmult 1 with_dummy False
+place a pmos called p2 with width p_width, length 1 fingers 1 rmult 1 multipliers 1 with_substrate_tap False with_tie False sd_rmult 1 gate_rmult 1 interfinger_rmult 1 with_dummy False
+place a pmos called p3 with width p_width, length 1 fingers 1 rmult 1 multipliers 1 with_substrate_tap False with_tie False sd_rmult 1 gate_rmult 1 interfinger_rmult 1 with_dummy False
+place a pmos called p4 with width p_width, length 1 fingers 1 rmult 1 multipliers 1 with_substrate_tap False with_tie False sd_rmult 1 gate_rmult 1 interfinger_rmult 1 with_dummy False
+place a pmos called p5 with width p_width, length 1 fingers 1 rmult 1 multipliers 1 with_substrate_tap False with_tie False sd_rmult 1 gate_rmult 1 interfinger_rmult 1 with_dummy False
+place a pmos called p6 with width p_width, length 1 fingers 1 rmult 1 multipliers 1 with_substrate_tap False with_tie False sd_rmult 1 gate_rmult 1 interfinger_rmult 1 with_dummy False
+place a pmos called p7 with width p_width, length 1 fingers 1 rmult 1 multipliers 1 with_substrate_tap False with_tie False sd_rmult 1 gate_rmult 1 interfinger_rmult 1 with_dummy False
+
+place a mimcap called c1
+place a mimcap called c2
+
+move p5 above p7
+move p6 below p7
+move n1 above p7
+move n1 left p5
+move n2 left p7
+move p1 below p7
+move p1 left p6
+move p2 below p7
+move p2 left p6
+move p2 below p1
+move p3 above p7
+move p3 right p5
+move n4 right p7
+move n3 below p7
+move n3 right p6
+move p4 above p7
+move p4 right p5
+move p4 above p3
+
+move c1 left p7
+move c1 left n2
+move c2 right p7
+move c2 right n4
+
+
+route between n1_drain_W and n2_source_W using smart route
+route between n2_drain_W and p1_drain_W using smart route
+route between p1_source_W and p2_drain_W using smart route
+route between n1_drain_E and p5_drain_E using smart route
+route between p5_source_W and p7_drain_W using smart route
+route between p7_drain_W and p6_source_W using smart route
+route between p6_drain_W and n3_drain_W using smart route
+route between n3_drain_E and n4_source_E using smart route
+route between n4_drain_E and p3_drain_E using smart route
+route between p3_source_E and p4_drain_E using smart route
+
+route between n2_drain_W and c1_bottom_met_W using smart route
+route between n4_drain_W and c2_bottom_met_W using smart route
