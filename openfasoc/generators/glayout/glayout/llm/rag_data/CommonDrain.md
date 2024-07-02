@@ -1,4 +1,17 @@
 # Common Drain Amplifier
-The purpose of a common drain amplifier, aka a source follower, is to provide buffering. It has high input impedance, low output impedance, and a voltage gain close to unity.
-A typical source follower schematic includes: an nmos with the drain terminal connected to vdd and an input signal that is applied to the gate terminal. Additionally, there is a resistor (Rs) that connects the source terminal to the ground. The output node is at the source voltage of the transistor.
-If another nmos is used to replace the resistor, its source is connected to ground, the drain is connected to the source of the first transistor, and the gate is connected to a voltage called Vbias which controls the nmos' resistance.
+## Purpose
+The purpose of a common drain amplifier, also known as a source follower, is to provide buffering with high input impedance, low output impedance, and a voltage gain close to unity.
+## Layout Description
+A typical source follower schematic includes an NMOS transistor with the drain connected to VDD and the input signal applied to the gate. A resistor (Rs) connects the source to ground, and the output is taken from the source of the transistor.
+
+If another NMOS transistor replaces the resistor, its source is connected to ground, its drain to the source of the first transistor, and its gate to a voltage called Vbias, which controls the NMOS's resistance.
+## Parameters
+The common drain amplifier has the following configurable parameters:
+length: a float parameter specifying the length of all transistor Components part of the common drain amplifier.
+width: a float parameter specifying the width of all transistor Components part of the common drain amplifier.
+fingers: an integer parameter which modifies the number of fingers in all transistor Components which are part of the common drain amplifier.
+## Ports
+The following are just some examples of the valid ports for common drain amplifier:
+ComponentRef_A_source_E
+ComponentRef_B_drain_W
+ComponentRef_A_gate_E
