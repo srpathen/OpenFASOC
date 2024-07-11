@@ -164,7 +164,6 @@ def diff_pair(
 	diffpair.add_ports(PLUSgate_routeW.get_ports_list(),prefix="PLUSgateroute_W_")
 	diffpair.add_ports(PLUSgate_routeE.get_ports_list(),prefix="PLUSgateroute_E_")
 	diffpair.add_padding(layers=(pdk.get_glayer(well),), default=0)
-
 	component = component_snap_to_grid(rename_ports_by_orientation(diffpair))
 
 	component.info['netlist'] = diff_pair_netlist(fetL, fetR)

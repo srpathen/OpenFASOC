@@ -1,0 +1,41 @@
+* NGSPICE file created from diffpair.ext - technology: sky130A
+
+.subckt diffpair minus drain_right drain_left source plus
+X0 source plus drain_left a_n3110_n2088# sky130_fd_pr__nfet_01v8 ad=0.99 pd=6.33 as=0.99 ps=6.33 w=6 l=1
+X1 source minus drain_right a_n3110_n2088# sky130_fd_pr__nfet_01v8 ad=0.99 pd=6.33 as=0.99 ps=6.33 w=6 l=1
+X2 drain_left plus source a_n3110_n2088# sky130_fd_pr__nfet_01v8 ad=0.99 pd=6.33 as=0.99 ps=6.33 w=6 l=1
+X3 drain_left plus source a_n3110_n2088# sky130_fd_pr__nfet_01v8 ad=0.99 pd=6.33 as=0.99 ps=6.33 w=6 l=1
+X4 drain_left plus source a_n3110_n2088# sky130_fd_pr__nfet_01v8 ad=0.99 pd=6.33 as=0.99 ps=6.33 w=6 l=1
+X5 drain_right minus source a_n3110_n2088# sky130_fd_pr__nfet_01v8 ad=0.99 pd=6.33 as=2.34 ps=12.78 w=6 l=1
+X6 drain_right minus source a_n3110_n2088# sky130_fd_pr__nfet_01v8 ad=0.99 pd=6.33 as=0.99 ps=6.33 w=6 l=1
+X7 source minus drain_right a_n3110_n2088# sky130_fd_pr__nfet_01v8 ad=2.34 pd=12.78 as=0.99 ps=6.33 w=6 l=1
+X8 drain_left plus source a_n3110_n2088# sky130_fd_pr__nfet_01v8 ad=0.99 pd=6.33 as=0.99 ps=6.33 w=6 l=1
+X9 drain_right minus source a_n3110_n2088# sky130_fd_pr__nfet_01v8 ad=0.99 pd=6.33 as=0.99 ps=6.33 w=6 l=1
+X10 drain_left plus source a_n3110_n2088# sky130_fd_pr__nfet_01v8 ad=0.99 pd=6.33 as=2.34 ps=12.78 w=6 l=1
+X11 source plus drain_left a_n3110_n2088# sky130_fd_pr__nfet_01v8 ad=0.99 pd=6.33 as=0.99 ps=6.33 w=6 l=1
+X12 drain_left plus source a_n3110_n2088# sky130_fd_pr__nfet_01v8 ad=0.99 pd=6.33 as=0.99 ps=6.33 w=6 l=1
+X13 a_n3110_n2088# a_n3110_n2088# a_n3110_n2088# a_n3110_n2088# sky130_fd_pr__nfet_01v8 ad=2.34 pd=12.78 as=18.72 ps=102.24 w=6 l=1
+X14 source plus drain_left a_n3110_n2088# sky130_fd_pr__nfet_01v8 ad=0.99 pd=6.33 as=0.99 ps=6.33 w=6 l=1
+X15 source minus drain_right a_n3110_n2088# sky130_fd_pr__nfet_01v8 ad=0.99 pd=6.33 as=0.99 ps=6.33 w=6 l=1
+X16 source plus drain_left a_n3110_n2088# sky130_fd_pr__nfet_01v8 ad=0.99 pd=6.33 as=0.99 ps=6.33 w=6 l=1
+X17 source plus drain_left a_n3110_n2088# sky130_fd_pr__nfet_01v8 ad=0.99 pd=6.33 as=0.99 ps=6.33 w=6 l=1
+X18 source plus drain_left a_n3110_n2088# sky130_fd_pr__nfet_01v8 ad=0.99 pd=6.33 as=0.99 ps=6.33 w=6 l=1
+X19 drain_right minus source a_n3110_n2088# sky130_fd_pr__nfet_01v8 ad=0.99 pd=6.33 as=0.99 ps=6.33 w=6 l=1
+X20 drain_left plus source a_n3110_n2088# sky130_fd_pr__nfet_01v8 ad=0.99 pd=6.33 as=2.34 ps=12.78 w=6 l=1
+X21 source minus drain_right a_n3110_n2088# sky130_fd_pr__nfet_01v8 ad=0.99 pd=6.33 as=0.99 ps=6.33 w=6 l=1
+X22 drain_right minus source a_n3110_n2088# sky130_fd_pr__nfet_01v8 ad=0.99 pd=6.33 as=2.34 ps=12.78 w=6 l=1
+X23 a_n3110_n2088# a_n3110_n2088# a_n3110_n2088# a_n3110_n2088# sky130_fd_pr__nfet_01v8 ad=2.34 pd=12.78 as=0 ps=0 w=6 l=1
+X24 a_n3110_n2088# a_n3110_n2088# a_n3110_n2088# a_n3110_n2088# sky130_fd_pr__nfet_01v8 ad=2.34 pd=12.78 as=0 ps=0 w=6 l=1
+X25 source minus drain_right a_n3110_n2088# sky130_fd_pr__nfet_01v8 ad=2.34 pd=12.78 as=0.99 ps=6.33 w=6 l=1
+X26 drain_right minus source a_n3110_n2088# sky130_fd_pr__nfet_01v8 ad=0.99 pd=6.33 as=0.99 ps=6.33 w=6 l=1
+X27 drain_right minus source a_n3110_n2088# sky130_fd_pr__nfet_01v8 ad=0.99 pd=6.33 as=0.99 ps=6.33 w=6 l=1
+X28 drain_right minus source a_n3110_n2088# sky130_fd_pr__nfet_01v8 ad=0.99 pd=6.33 as=0.99 ps=6.33 w=6 l=1
+X29 drain_left plus source a_n3110_n2088# sky130_fd_pr__nfet_01v8 ad=0.99 pd=6.33 as=0.99 ps=6.33 w=6 l=1
+X30 a_n3110_n2088# a_n3110_n2088# a_n3110_n2088# a_n3110_n2088# sky130_fd_pr__nfet_01v8 ad=2.34 pd=12.78 as=0 ps=0 w=6 l=1
+X31 source minus drain_right a_n3110_n2088# sky130_fd_pr__nfet_01v8 ad=0.99 pd=6.33 as=0.99 ps=6.33 w=6 l=1
+X32 source minus drain_right a_n3110_n2088# sky130_fd_pr__nfet_01v8 ad=0.99 pd=6.33 as=0.99 ps=6.33 w=6 l=1
+X33 source plus drain_left a_n3110_n2088# sky130_fd_pr__nfet_01v8 ad=2.34 pd=12.78 as=0.99 ps=6.33 w=6 l=1
+X34 source minus drain_right a_n3110_n2088# sky130_fd_pr__nfet_01v8 ad=0.99 pd=6.33 as=0.99 ps=6.33 w=6 l=1
+X35 source plus drain_left a_n3110_n2088# sky130_fd_pr__nfet_01v8 ad=2.34 pd=12.78 as=0.99 ps=6.33 w=6 l=1
+.ends
+

@@ -129,7 +129,73 @@ def sky130_opamp_add_pads(opamp_in: Component, flatten=False) -> Component:
 	else:
 		return opamp_wpads
 
+def sky130_add_currmirror_labels(currmirr_in: Component) -> Component:
+	currmirr_in.unlock()
+	met2_pin = (69,16)
+	met2_label = (69,5)
+	met1_pin = (68,16)
+	met1_label = (68,5)
+	# met3_pin = (70,16)
+	# met3_label = (70,5)
+	# met4_pin = (71,16)
+	# met4_label = (71,5)
+	move_info = list()
+	gnd_pin = rectangle(layer=met2_pin, size=(0.12,0.12), centered=True).copy()
+	gnd_pin.add_label(text="gnd",layer=met2_label)
+	move_info.append((gnd_pin,currmirr_in.ports["purposegndportscon_N"],None))
+ 
+	ref_pin = rectangle(layer=met1_pin, size=(0.12,0.12), centered=True).copy()
+	ref_pin.add_label(text="ref_drain",layer=met1_label)
+	move_info.append((ref_pin,currmirr_in.ports["fet_A_drain_N"],None))
+ 
+	mirr_pin = rectangle(layer=met1_pin, size=(0.12,0.12), centered=True).copy()
+	mirr_pin.add_label(text="mirr_drain",layer=met1_label)
+	move_info.append((mirr_pin,currmirr_in.ports["fet_B_drain_N"],None))
+ 
+	for comp, prt, alignment in move_info:
+		alignment = ('c','b') if alignment is None else alignment
+		compref = align_comp_to_port(comp, prt, alignment=alignment)
+		currmirr_in.add(compref)
+	return currmirr_in.flatten()
 
+
+def sky130_add_diffpair_labels(diffpair_in: Component) -> Component: 
+	diffpair_in.unlock()
+	met2_pin = (69,16)
+	met2_label = (69,5)
+	# met3_pin = (70,16)
+	# met3_label = (70,5)
+	# met4_pin = (71,16)
+	# met4_label = (71,5)
+	# list that will contain all port/comp info
+	move_info = list()
+	#minus
+	minuslabel = rectangle(layer=met2_pin,size=(0.5, 0.5),centered=True).copy()
+	minuslabel.add_label(text="minus",layer=met2_label)
+	move_info.append((minuslabel,diffpair_in.ports["MINUSgateroute_W_con_S"],None))
+	#-plus
+	pluslabel = rectangle(layer=met2_pin,size=(0.5, 0.5),centered=True).copy()
+	pluslabel.add_label(text="plus",layer=met2_label)
+	move_info.append((pluslabel,diffpair_in.ports["PLUSgateroute_W_con_N"],None))
+	# source short
+	sourcelabel = rectangle(layer=met2_pin,size=(0.5, 0.5),centered=True).copy()
+	sourcelabel.add_label(text="source",layer=met2_label)
+	move_info.append((sourcelabel,diffpair_in.ports["source_routeW_con_S"],None))
+	# drain left
+	drain_left_label = rectangle(layer=met2_pin,size=(0.5, 0.5),centered=True).copy()
+	drain_left_label.add_label(text="drain_left",layer=met2_label)
+	move_info.append((drain_left_label,diffpair_in.ports["drain_routeTL_BR_con_N"],None))
+	# drain right
+	drain_right_label = rectangle(layer=met2_pin,size=(0.5, 0.5),centered=True).copy()
+	drain_right_label.add_label(text="drain_right",layer=met2_label)
+	move_info.append((drain_right_label,diffpair_in.ports["drain_routeTR_BL_con_N"],None))
+	
+	for comp, prt, alignment in move_info:
+		alignment = ('c','b') if alignment is None else alignment
+		compref = align_comp_to_port(comp, prt, alignment=alignment)
+		diffpair_in.add(compref)
+	return diffpair_in.flatten()
+ 
 def sky130_add_opamp_labels(opamp_in: Component) -> Component:
 	"""adds opamp labels for extraction, without adding pads
 	this function does not need to be used with sky130_add_opamp_pads
@@ -168,15 +234,15 @@ def sky130_add_opamp_labels(opamp_in: Component) -> Component:
 	#-plus
 	pluslabel = rectangle(layer=met2_pin,size=(1,1),centered=True).copy()
 	pluslabel.add_label(text="plus",layer=met2_label)
-	move_info.append((pluslabel,opamp_in.ports["pin_plus_N"],None))
+	move_info.append((pluslabel,opamp_in.ports["pin_plus_N"],None)) # met3
 	#vdd
 	vddlabel = rectangle(layer=met3_pin,size=(1,1),centered=True).copy()
 	vddlabel.add_label(text="vdd",layer=met3_label)
-	move_info.append((vddlabel,opamp_in.ports["pin_vdd_N"],None))
+	move_info.append((vddlabel,opamp_in.ports["pin_vdd_N"],None)) # pin is met4
 	# output (3rd stage)
 	outputlabel = rectangle(layer=met2_pin,size=(1,1),centered=True).copy()
 	outputlabel.add_label(text="output",layer=met2_label)
-	move_info.append((outputlabel,opamp_in.ports["pin_output_route_N"],None))
+	move_info.append((outputlabel,opamp_in.ports["pin_output_route_N"],None)) # pin is met3
 	# output (2nd stage)
 	outputlabel = rectangle(layer=met4_pin,size=(0.2,0.2),centered=True).copy()
 	outputlabel.add_label(text="CSoutput",layer=met4_label)
@@ -231,7 +297,61 @@ def sky130_add_lvt_layer(opamp_in: Component) -> Component:
 
 # ====Run Training====
 
+def diff_pair_parameters_serializer(
+	width: float = 3,
+	fingers: int = 4,
+	length: Optional[float] = 0.15, 
+	rmult: Optional[float] = 1.0
+) -> np.array:
+	"""converts diffpair params into the uniform numpy float format"""
+	return np.array([width,fingers,length,rmult],dtype=np.float64)
 
+def diff_pair_parameters_de_serializer(
+	serialized_params: Optional[np.array] = None
+) -> dict:
+	"""converts uniform numpy float format to diffpair kwargs"""
+	if serialized_params is None:
+		serialized_params = 4*[-987.654321]
+	if not len(serialized_params) == 4:
+		raise ValueError("serialized_params should be a length 4 array")
+	params_dict = dict()
+	params_dict["width"] = float(serialized_params[0])
+	params_dict["fingers"] = int(serialized_params[1])
+	params_dict["length"] = float(serialized_params[2])
+	params_dict["rmult"] = int(serialized_params[3])
+	return params_dict
+
+def diff_pair_results_serializer(
+	ugb: float = -987.654321,
+ 	dcGain: float = -987.654321,
+   	phaseMargin: float = -987.654321,
+    Ibias: float = -987.654321,
+    area: float = -987.654321,
+    power: float = -987.654321,
+    noise: float = -987.654321,
+    bw_3db: float = -987.654321,
+    power_twostage: float = -987.654321
+) -> np.array:
+	return np.array([ugb,dcGain,phaseMargin,Ibias,area,power,noise,bw_3db,power_twostage],dtype=np.float64)
+
+def currmirror_parameters_serializer(
+    numcols: int = 3
+) -> np.array:
+	"""converts currmirror params into the uniform numpy float format"""
+	return np.array([numcols],dtype=np.float64)
+
+def currmirror_parameters_de_serializer(
+    	serialized_params: Optional[np.array] = None
+) -> dict:
+	"""converts uniform numpy float format to currmirror kwargs"""
+	if serialized_params is None:
+		serialized_params = 1*[-987.654321]
+	if not len(serialized_params) == 1:
+		raise ValueError("serialized_params should be a length 1 array")
+	params_dict = dict()
+	params_dict["numcols"] = int(serialized_params[0])
+	return params_dict
+     
 
 def opamp_parameters_serializer(
 	half_diffpair_params: tuple[float, float, int] = (6, 1, 4),
@@ -296,6 +416,25 @@ def opamp_results_serializer(
 ) -> np.array:
 	return np.array([ugb, dcGain, phaseMargin, Ibias_diffpair, Ibias_commonsource, Ibias_output, area, power, noise, bw_3db, power_twostage], dtype=np.float64)
 
+def currmirror_results_serializer(
+    BiasCurr: float = -987.654321,
+    BiasRes: float = -987.654321,
+    power: float = -987.654321,
+    percent_error_curr: float = -987.654321
+) -> np.array:
+	return np.array([BiasCurr, BiasRes, power, percent_error_curr], dtype=np.float64)
+ 
+def diffpair_results_serializer(
+    BiasCurr: float = -987.654321,
+    bw_3db: float = -987.654321,
+    cmrr: float = -987.654321,
+    common_mode_gain: float = -987.654321,
+    power: float = -987.654321,
+    noise: float = -987.654321,
+    diff_mode_gain: float = -987.654321
+) -> np.array:
+	return np.array([BiasCurr, bw_3db, cmrr, common_mode_gain, power, noise, diff_mode_gain], dtype=np.float64)
+
 def opamp_results_de_serializer(
 	results: Optional[np.array]=None
 ) -> dict:
@@ -317,6 +456,51 @@ def opamp_results_de_serializer(
 	results_dict["bw_3db"] = float(results[9])
 	results_dict["power_twostage"] = float(results[10])
 	return results_dict
+
+def currmirror_results_de_serializer(
+	results: Optional[np.array]=None
+) -> dict:
+	results_length_const = 4
+	if results is None:
+		results = results_length_const*[-987.654321]
+	if not len(results) == results_length_const:
+		raise ValueError("results should be a length "+str(results_length_const)+" array")
+	results_dict = dict()
+	results_dict["BiasCurr"] = float(results[0])
+	results_dict["BiasRes"] = float(results[1])
+	results_dict["power"] = float(results[2])
+	results_dict["percent_error_curr"] = float(results[3])
+	return results_dict
+
+def diffpair_results_de_serializer(
+	results: Optional[np.array]=None	
+) -> dict:
+	results_length_const = 7
+	if results is None:
+		results = results_length_const*[-987.654321]
+	if not len(results) == results_length_const:
+		raise ValueError("results should be a length "+str(results_length_const)+" array")
+	results_dict = dict()
+	results_dict["BiasCurr"] = float(results[0])
+	results_dict["bw_3db"] = float(results[1])
+	results_dict["cmrr"] = float(results[2])
+	results_dict["common_mode_gain"] = float(results[3])
+	results_dict["power"] = float(results[4])
+
+	return results_dict	
+
+def get_diffpair_params_list(test_mode = False) -> np.array:
+	diffpairs = list()
+	if not test_mode: 
+		for width in [3, 6, 9]:
+			for length in [0.15, 0.5, 1.0]:
+				for finger in [4, 8, 12]:
+					diffpairs.append(diff_pair_parameters_serializer(width=width, length=length, fingers=finger))
+     
+	else:
+		diffpairs.append(diff_pair_parameters_serializer(width=6, length=1, fingers=4))
+		diffpairs.append(diff_pair_parameters_serializer(width=5, length=1, fingers=4))
+	return np.array(diffpairs, dtype=np.float64)
 
 def get_small_parameter_list(test_mode = False, clarge=False) -> np.array:
 	"""creates small parameter list intended for brute force"""
@@ -459,7 +643,7 @@ def get_small_parameter_list(test_mode = False, clarge=False) -> np.array:
 		sys.exit()
 	return short_list
 
-def get_sim_results(acpath: Union[str,Path], dcpath: Union[str,Path], noisepath: Union[str,Path]):
+def get_sim_results(acpath: Union[str,Path], dcpath: Union[str,Path], noisepath: Union[str,Path], component: Optional[str]="opamp"):
 	acabspath = Path(acpath).resolve()
 	dcabspath = Path(dcpath).resolve()
 	noiseabspath = Path(noisepath).resolve()
@@ -484,22 +668,47 @@ def get_sim_results(acpath: Union[str,Path], dcpath: Union[str,Path], noisepath:
 			NoiseColumns = [item for item in RawNoise.split() if item]
 	except Exception:
 		pass
-	na = -987.654321
-	noACresults = (ACColumns is None) or len(ACColumns)<13
-	noDCresults = (DCColumns is None) or len(DCColumns)<4
-	nonoiseresults = (NoiseColumns is None) or len(NoiseColumns)<2
-	return_dict = {
-		"ugb": na if noACresults else ACColumns[1],
-		"Ibias_diffpair": na if noACresults else ACColumns[3],
-		"Ibias_commonsource": na if noACresults else ACColumns[5],
-		"Ibias_output": na if noACresults else ACColumns[7],
-		"phaseMargin": na if noACresults else ACColumns[9],
-		"dcGain": na if noACresults else ACColumns[11],
-		"bw_3db": na if noACresults else ACColumns[13],
-		"power": na if noDCresults else DCColumns[1],
-		"noise": na if nonoiseresults else NoiseColumns[1],
-		"power_twostage": na if noDCresults else DCColumns[3],
-	}
+	if component == "opamp":
+		na = -987.654321
+		noACresults = (ACColumns is None) or len(ACColumns)<13
+		noDCresults = (DCColumns is None) or len(DCColumns)<4
+		nonoiseresults = (NoiseColumns is None) or len(NoiseColumns)<2
+		return_dict = {
+			"ugb": na if noACresults else ACColumns[1],
+			"Ibias_diffpair": na if noACresults else ACColumns[3],
+			"Ibias_commonsource": na if noACresults else ACColumns[5],
+			"Ibias_output": na if noACresults else ACColumns[7],
+			"phaseMargin": na if noACresults else ACColumns[9],
+			"dcGain": na if noACresults else ACColumns[11],
+			"bw_3db": na if noACresults else ACColumns[13],
+			"power": na if noDCresults else DCColumns[1],
+			"noise": na if nonoiseresults else NoiseColumns[1],
+			"power_twostage": na if noDCresults else DCColumns[3],
+		}
+	elif component == "diffpair":
+		na = -987.654321
+		noACresults = (ACColumns is None) or len(ACColumns)<12
+		noDCresults = (DCColumns is None) or len(DCColumns)<2
+		nonoiseresults = (NoiseColumns is None) or len(NoiseColumns)<2
+		return_dict = {
+			"BiasCurr": na if noACresults else ACColumns[1],
+			"bw_3db": na if noACresults else ACColumns[-1],
+			"cmrr": na if noACresults else ACColumns[9],
+			"common_mode_gain": na if noACresults else ACColumns[7],
+			"power": na if noDCresults else DCColumns[1],
+			"noise": na if nonoiseresults else NoiseColumns[1],
+			"diff_mode_gain": na if noACresults else ACColumns[5],
+		}
+	elif component == "currmirror":
+		na = -987.654321
+		noACresults = (ACColumns is None) or len(ACColumns)<6
+		noDCresults = (DCColumns is None) or len(DCColumns)<2
+		return_dict = {
+			"BiasCurr": na if noACresults else ACColumns[1],
+			"BiasRes": na if noACresults else ACColumns[-1],
+			"power": na if noDCresults else DCColumns[1],
+			"percent_error_curr": na if noACresults else ACColumns[3],
+		}
 	for key, val in return_dict.items():
 		val_flt = na
 		try:

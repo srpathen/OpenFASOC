@@ -1,0 +1,88 @@
+* NGSPICE file created from currmirror.ext - technology: sky130A
+
+.subckt currmirror mirr_drain ref_drain gnd
+X0 mirr_drain.t2 ref_drain.t6 gnd.t1 a_n1528_n951# sky130_fd_pr__nfet_01v8 ad=1.425 pd=6.95 as=1.425 ps=6.95 w=3 l=0.15
+X1 ref_drain.t5 ref_drain.t4 gnd.t5 a_n1528_n951# sky130_fd_pr__nfet_01v8 ad=1.425 pd=6.95 as=1.425 ps=6.95 w=3 l=0.15
+X2 a_1058_n300# a_1058_n300# a_1058_n300# a_n1528_n951# sky130_fd_pr__nfet_01v8 ad=1.425 pd=6.95 as=2.85 ps=13.9 w=3 l=0.15
+X3 mirr_drain.t1 ref_drain.t7 gnd.t2 a_n1528_n951# sky130_fd_pr__nfet_01v8 ad=1.425 pd=6.95 as=1.425 ps=6.95 w=3 l=0.15
+X4 ref_drain.t3 ref_drain.t2 gnd.t4 a_n1528_n951# sky130_fd_pr__nfet_01v8 ad=1.425 pd=6.95 as=1.425 ps=6.95 w=3 l=0.15
+X5 mirr_drain.t0 ref_drain.t8 gnd.t0 a_n1528_n951# sky130_fd_pr__nfet_01v8 ad=1.425 pd=6.95 as=1.425 ps=6.95 w=3 l=0.15
+X6 a_n1278_n300# a_n1278_n300# a_n1278_n300# a_n1528_n951# sky130_fd_pr__nfet_01v8 ad=1.425 pd=6.95 as=2.85 ps=13.9 w=3 l=0.15
+X7 ref_drain.t1 ref_drain.t0 gnd.t3 a_n1528_n951# sky130_fd_pr__nfet_01v8 ad=1.425 pd=6.95 as=1.425 ps=6.95 w=3 l=0.15
+R0 ref_drain.n0 ref_drain.t6 1240.62
+R1 ref_drain.n1 ref_drain.t7 1239.37
+R2 ref_drain.n0 ref_drain.t8 1239.37
+R3 ref_drain.n2 ref_drain.t2 877.51
+R4 ref_drain.n3 ref_drain.t4 876.268
+R5 ref_drain.n2 ref_drain.t0 876.268
+R6 ref_drain ref_drain.t3 90.9994
+R7 ref_drain.n6 ref_drain.t1 89.7731
+R8 ref_drain.n5 ref_drain.t5 89.7731
+R9 ref_drain.n5 ref_drain.n4 6.97137
+R10 ref_drain.n4 ref_drain.n1 6.16717
+R11 ref_drain.n4 ref_drain.n3 5.08005
+R12 ref_drain.n6 ref_drain.n5 1.41429
+R13 ref_drain.n3 ref_drain.n2 1.24292
+R14 ref_drain.n1 ref_drain.n0 1.24292
+R15 ref_drain ref_drain.n6 0.188
+R16 gnd.n2 gnd.t2 123.769
+R17 gnd.n2 gnd.t0 122.355
+R18 gnd.n3 gnd.t1 122.355
+R19 gnd.n0 gnd.t5 74.5081
+R20 gnd.n0 gnd.t3 73.0943
+R21 gnd.n1 gnd.t4 73.0943
+R22 gnd.n4 gnd.n1 6.55784
+R23 gnd.n4 gnd.n3 5.42291
+R24 gnd.n3 gnd.n2 1.41429
+R25 gnd.n1 gnd.n0 1.41429
+R26 gnd gnd.n4 0.0175455
+R27 mirr_drain.n0 mirr_drain.t2 140.447
+R28 mirr_drain mirr_drain.t1 139.929
+R29 mirr_drain.n0 mirr_drain.t0 139.034
+R30 mirr_drain mirr_drain.n0 0.519897
+C0 gnd a_n1278_n300# 0.128877f
+C1 mirr_drain a_1058_n300# 0.128665f
+C2 ref_drain mirr_drain 0.325896f
+C3 a_n1278_n300# ref_drain 0.175153f
+C4 gnd a_1058_n300# 0.055f
+C5 gnd ref_drain 5.11017f
+C6 ref_drain a_1058_n300# 0.010481f
+C7 gnd mirr_drain 3.64718f
+C8 mirr_drain a_n1528_n951# 1.782806f
+C9 gnd a_n1528_n951# 1.527984f
+C10 ref_drain a_n1528_n951# 4.707895f
+C11 a_1058_n300# a_n1528_n951# 0.444995f
+C12 a_n1278_n300# a_n1528_n951# 0.4429f
+C13 mirr_drain.t2 a_n1528_n951# 0.729579f
+C14 mirr_drain.t0 a_n1528_n951# 0.725716f
+C15 mirr_drain.n0 a_n1528_n951# 0.796577f
+C16 mirr_drain.t1 a_n1528_n951# 0.728942f
+C17 gnd.t5 a_n1528_n951# 0.661192f
+C18 gnd.t3 a_n1528_n951# 0.649377f
+C19 gnd.n0 a_n1528_n951# 1.35721f
+C20 gnd.t4 a_n1528_n951# 0.649377f
+C21 gnd.n1 a_n1528_n951# 0.919708f
+C22 gnd.t2 a_n1528_n951# 0.807197f
+C23 gnd.t0 a_n1528_n951# 0.800258f
+C24 gnd.n2 a_n1528_n951# 1.19599f
+C25 gnd.t1 a_n1528_n951# 0.800258f
+C26 gnd.n3 a_n1528_n951# 0.655672f
+C27 gnd.n4 a_n1528_n951# 0.190347f
+C28 ref_drain.t3 a_n1528_n951# 0.456867f
+C29 ref_drain.t6 a_n1528_n951# 0.088021f
+C30 ref_drain.t8 a_n1528_n951# 0.087839f
+C31 ref_drain.n0 a_n1528_n951# 0.452014f
+C32 ref_drain.t7 a_n1528_n951# 0.087839f
+C33 ref_drain.n1 a_n1528_n951# 0.36552f
+C34 ref_drain.t2 a_n1528_n951# 0.068719f
+C35 ref_drain.t0 a_n1528_n951# 0.068376f
+C36 ref_drain.n2 a_n1528_n951# 0.474994f
+C37 ref_drain.t4 a_n1528_n951# 0.068376f
+C38 ref_drain.n3 a_n1528_n951# 0.241913f
+C39 ref_drain.n4 a_n1528_n951# 0.369559f
+C40 ref_drain.t5 a_n1528_n951# 0.451075f
+C41 ref_drain.n5 a_n1528_n951# 0.49883f
+C42 ref_drain.t1 a_n1528_n951# 0.451075f
+C43 ref_drain.n6 a_n1528_n951# 0.359f
+.ends
+
