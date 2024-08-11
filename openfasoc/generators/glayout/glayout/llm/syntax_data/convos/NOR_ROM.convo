@@ -1,0 +1,36 @@
+NOR_ROM
+create a float parameter called p_width
+create a float parameter called n_width
+
+place a pmos called p1 with width p_width, length 1 fingers 1 rmult 1 multipliers 1 with_substrate_tap False with_tie False sd_rmult 1 gate_rmult 1 interfinger_rmult 1 with_dummy False
+place a pmos called p2 with width p_width, length 1 fingers 1 rmult 1 multipliers 1 with_substrate_tap False with_tie False sd_rmult 1 gate_rmult 1 interfinger_rmult 1 with_dummy False
+place a pmos called p3 with width p_width, length 1 fingers 1 rmult 1 multipliers 1 with_substrate_tap False with_tie False sd_rmult 1 gate_rmult 1 interfinger_rmult 1 with_dummy False
+place a pmos called p4 with width p_width, length 1 fingers 1 rmult 1 multipliers 1 with_substrate_tap False with_tie False sd_rmult 1 gate_rmult 1 interfinger_rmult 1 with_dummy False
+place a nmos called n1 with width n_width, length 1 fingers 1 rmult 1 multipliers 1 with_substrate_tap False with_tie False sd_rmult 1 gate_rmult 1 interfinger_rmult 1 with_dummy False
+place a nmos called n2 with width n_width, length 1 fingers 1 rmult 1 multipliers 1 with_substrate_tap False with_tie False sd_rmult 1 gate_rmult 1 interfinger_rmult 1 with_dummy False
+place a nmos called n3 with width n_width, length 1 fingers 1 rmult 1 multipliers 1 with_substrate_tap False with_tie False sd_rmult 1 gate_rmult 1 interfinger_rmult 1 with_dummy False
+place a nmos called n4 with width n_width, length 1 fingers 1 rmult 1 multipliers 1 with_substrate_tap False with_tie False sd_rmult 1 gate_rmult 1 interfinger_rmult 1 with_dummy False
+place a nmos called n5 with width n_width, length 1 fingers 1 rmult 1 multipliers 1 with_substrate_tap False with_tie False sd_rmult 1 gate_rmult 1 interfinger_rmult 1 with_dummy False
+
+move p2 above p4
+move p3 above p4
+move p3 right p2
+move p1 above p4
+move p1 left p2
+move n1 left p4
+move n2 right p4
+move n4 below p4
+move n3 below p4
+move n3 left n4
+move n5 below p4
+move n5 right n4
+
+
+route between p1_drain_W and n1_drain_W using smart route
+route between p2_drain_W and n2_drain_W using smart route
+route between p2_drain_W and n3_drain_W using smart route
+route between n4_drain_W and n5_drain_W using smart route
+route between p4_drain_W and n4_drain_W using smart route
+
+route between n1_gate_E and n4_gate_E using smart route
+route between n3_gate_E and n5_gate_E using smart route
