@@ -1,0 +1,35 @@
+PFD
+import AsyncDFF
+import Inverter
+import AND
+create a float parameter called nwidth
+create a float parameter called pwidth
+place an AsyncDFF called dff1 with n_flip_width nwidth, p_flip_width pwidth
+place an AsyncDFF called dff2 with n_flip_width nwidth, p_flip_width pwidth
+place an AND called and1 with n_width nwidth, p_width pwidth
+place a nmos called pulldown with width 1 length 1 fingers 1 rmult 1 multipliers 1 with_substrate_tap False with_tie False sd_rmult 1 gate_rmult 1 interfinger_rmult 1 with_dummy False 
+place a pmos called pullup with width 1 length 1 fingers 1 rmult 1 multipliers 1 with_substrate_tap False with_tie False sd_rmult 1 gate_rmult 1 interfinger_rmult 1 with_dummy False 
+place an Inverter called inverter
+move dff1 left of inverter
+move and1 below inverter
+move dff2 left of inverter
+move dff2 below inverter
+move dff2 below dff1
+move and1 right of inverter
+move and1 below inverter
+move and1 below dff1
+move and1 right of dff1
+move pullup right of inverter
+move pulldown right of inverter
+move pulldown right of pullup
+move pullup above and1
+move pulldown above and1
+move inverter above and1
+route between dff1_nand5_m6_drain_W and dff2_nand5_m6_drain_W using smart_route
+route between dff1_nand5_m6_drain_W and and1_inv_m1_drain_W using smart_route
+route between dff1_nand4_m4_drain_W and inverter_m1_gate_W
+route between dff2_nand4_m4_drain_W and and1_nand_m4_gate_W
+route between dff1_nand4_m4_drain_W and and1_nand_m3_gate_W
+route between inverter_m1_drain_W and pullup_gate_W
+route between and1_nand_m4_gate_W and pulldown_gate_W
+route between pullup_drain_W and pulldown_drain_W

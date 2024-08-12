@@ -1,0 +1,33 @@
+AsyncDFF
+import NAND
+import three_input_NAND
+create a float parameter called n_flip_width
+create a float parameter called p_flip_width
+place a three_input_NAND called nand1 with nfet_width n_flip_width, pfet_width p_flip_width
+place a three_input_NAND called nand2 with nfet_width n_flip_width, pfet_width p_flip_width
+place a NAND called nand3 with nfet_width n_flip_width, pfet_width p_flip_width
+place a NAND called nand4 with nfet_width n_flip_width, pfet_width p_flip_width
+place a three_input_NAND called nand5 with nfet_width n_flip_width, pfet_width p_flip_width
+place a three_input_NAND called nand6 with nfet_width n_flip_width, pfet_width p_flip_width
+move nand1 to the west of nand3
+move nand4 below nand3
+move nand2 west of nand3
+move nand2 west of nand4
+move nand2 south of nand3
+move nand5 east of nand3
+move nand6 east of nand3
+move nand6 east of nand4
+move nand6 south of nand3
+route between nand1_m3_gate_W and nand3_m4_drain_W using smart_route
+route between nand1_m4_gate_W and nand5_m4_gate_W using smart_route
+route between nand1_m6_gate_W and nand2_m6_gate_W using smart_route
+route between nand1_m6_drain_W and nand3_m3_gate_W using smart_route
+route between nand1_m6_drain_W and nand5_m4_gate_W using smart_route
+route between nand2_m3_gate_W and nand6_m4_gate_W using smart_route
+route between nand2_m6_gate_W and nand6_m6_gate_W using smart_route
+route between nand2_m6_drain_W and nand3_m3_gate_W using smart_route
+route between nand2_m6_drain_W and nand5_m6_gate_W using smart_route
+route between nand3_m3_gate_W and nand4_m3_gate_W using smart_route
+route between nand4_m4_gate_W and nand6_m6_drain_W using smart_route
+route between nand4_m4_drain_W and nand6_m3_gate_W using smart_route
+route between nand5_m6_drain_W and nand2_m3_gate_W using smart_route

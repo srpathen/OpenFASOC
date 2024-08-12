@@ -1,0 +1,7 @@
+VoltageDivider
+import AsyncDFF
+create a float parameter called nwidth
+create a float parameter called pwidth
+place and AsyncDFF called dff with n_flip_width nwidth, p_flip_width pwidth
+AsyncDFF1_nand5_m6_drain and AsyncDFF1_nand2_m4_drain
+AsyncDFF1_nand6_m6_drain and AsyncDFF1_nand2_m4_gate
